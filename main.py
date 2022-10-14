@@ -35,7 +35,7 @@ def commandProcess(response, command, length, data=None):
                 response(command, 0, 0, None)
         except Exception as e:
             print(e)
-            response(command, 0, 0, None)
+            response(command, 1, 0, None)
     elif command == COMMAND_ID_FILE_REQUEST:
         file_index = data[0] * 256 + data[1]
         data_size = data[2] * 256 + data[3]
