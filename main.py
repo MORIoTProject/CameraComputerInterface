@@ -40,13 +40,14 @@ def commandProcess(response, command, length, data=None):
         file_index = data[0] * 256 + data[1]
         data_size = data[2] * 256 + data[3]
         print("ReadFile Index:{} DataSize:{}".format(file_index, data_size))
-        b = bytearray(data[4:])
+        file_binary = bytearray(data[4:])
         try:
-            f = open("./"+OUTPUT_FOLDER+"/" + b.decode(), 'rb')
+            f = open("./"+OUTPUT_FOLDER+"/" + file_binary.decode(), 'rb')
             if file_index != 0:
                 f.read(file_index * data_size)
             file_data = f.read(data_size)
-            array = [data[0], data[1], (len(file_data) >> 8) & 0xff, len(file_data) & 0xff]
+            array = [data[0], data[1], (len(file_data) >> 8) & 0xff, len(file_data) & 0xff,len(file_binary)]
+            array.extend(file_binary)
             array.extend(file_data)
             response(command, 0, len(array), list(array))
 
