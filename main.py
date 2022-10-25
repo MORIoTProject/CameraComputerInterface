@@ -49,6 +49,7 @@ def commandProcess(response, command, length, data=None):
             array = [data[0], data[1], (len(file_data) >> 8) & 0xff, len(file_data) & 0xff,len(file_binary)]
             array.extend(file_binary)
             array.extend(file_data)
+            print("file_data :{}".format(file_data))
             response(command, 0, len(array), list(array))
 
         except Exception as e:
