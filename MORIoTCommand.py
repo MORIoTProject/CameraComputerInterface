@@ -55,8 +55,11 @@ class Command:
                     packet_type = self.PACKET_HEADER
                     print("Command Timeout Clear")
                     command_clear_counter = 0
+                    if packet_id == self.id:
+                        print("Retry")
+                        self.ser.write([0x00, 0xea, self.id, packet_command, 0, 0, 255])
 
-                if command_clear_counter >= 60:
+                if command_clear_counter >= 120:
                     print("Command Timeout Clear")
                     print("Port Reset")
                     command_clear_counter = 0
